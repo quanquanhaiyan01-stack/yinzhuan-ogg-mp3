@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
-import { fetchFile } from "@ffmpeg/util";
+import { fetchFile, toBlobURL } from "@ffmpeg/util";
 
 const bitrates = ["128", "192", "256", "320"];
 
@@ -72,9 +72,10 @@ export default function Home() {
         ffmpeg.on("progress", ({ progress: value }) => {
           setProgress(Math.max(3, Math.min(99, Math.round(value * 100))));
         });
+        const engineBase = "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/umd";
         await ffmpeg.load({
-          coreURL: "/ffmpeg/ffmpeg-core.js",
-          wasmURL: "/ffmpeg/ffmpeg-core.wasm",
+          coreURL: await toBlobURL(`${engineBase}/ffmpeg-core.js`, "text/javascript"),
+          wasmURL: await toBlobURL(`${engineBase}/ffmpeg-core.wasm`, "application/wasm"),
         });
         ffmpegRef.current = ffmpeg;
       }
