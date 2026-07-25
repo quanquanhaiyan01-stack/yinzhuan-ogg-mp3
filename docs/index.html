@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="无需上传，在浏览器本地把 OGG 音频转换为 MP3。">
+  <title>音转｜OGG 转 MP3</title>
+  <style>
+    :root{--ink:#15211c;--muted:#647069;--paper:#f3f1ea;--card:#fbfaf6;--line:#d8d7ce;--lime:#c9f45b;--green:#1f4b37}
+    *{box-sizing:border-box}html{background:var(--paper)}body{margin:0;color:var(--ink);background:radial-gradient(circle at 82% 14%,rgba(201,244,91,.25),transparent 25rem),var(--paper);font-family:Arial,"Microsoft YaHei",sans-serif}button,select,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}.page{width:min(1120px,calc(100% - 40px));margin:auto}.topbar{height:84px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(21,33,28,.16)}.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}.brand-mark{width:34px;height:34px;display:grid;place-items:center;color:white;background:var(--green);border-radius:50%;font-size:14px}.privacy{padding:8px 13px;border:1px solid rgba(31,75,55,.22);border-radius:999px;color:var(--green);font-size:13px;font-weight:700}.privacy:before{content:"●";color:#65a93d;margin-right:7px;font-size:9px}.hero{padding:78px 0 50px;display:grid;grid-template-columns:1.5fr .75fr;gap:60px;align-items:end}.eyebrow{grid-column:1/-1;margin:0 0 -35px;color:var(--green);font-weight:800;letter-spacing:.14em;font-size:13px}h1{margin:0;font-family:Georgia,"Songti SC",serif;font-size:clamp(52px,7.2vw,92px);font-weight:500;letter-spacing:-.055em;line-height:.98}h1 em{color:var(--green);font-weight:500;text-decoration:underline;text-decoration-color:var(--lime);text-decoration-thickness:14px;text-underline-offset:-6px;text-decoration-skip-ink:none}.lede{color:var(--muted);font-size:16px;line-height:1.8;margin:0 0 8px}.converter{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:20px;box-shadow:0 24px 70px rgba(27,43,35,.08)}.dropzone{min-height:218px;display:grid;place-items:center;border:1.5px dashed #a8aaa0;border-radius:19px;background:#f5f5ef;transition:.2s}.dropzone.dragging{transform:scale(.995);border-color:var(--green);background:#eef5da}.dropzone input{display:none}.drop-button{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;color:var(--ink)}.drop-button strong{font-size:18px}.drop-button small{color:var(--muted)}.upload-mark{width:56px;height:56px;display:grid;place-items:center;margin-bottom:4px;border-radius:50%;background:var(--lime);font-size:30px}.file-card{width:min(620px,calc(100% - 34px));display:none;align-items:center;gap:16px}.file-badge{width:62px;height:62px;display:grid;place-items:center;border-radius:14px;background:var(--green);color:white;font-weight:800;font-size:13px}.file-info{min-width:0;display:flex;flex:1;flex-direction:column;gap:6px}.file-info strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file-info span{color:var(--muted);font-size:13px}.replace{border:0;background:transparent;color:var(--green);font-weight:800;cursor:pointer}.controls{padding:24px 4px 6px;display:flex;align-items:center;justify-content:space-between;gap:20px}.controls label{font-weight:800}.controls p{margin:5px 0 0;color:var(--muted);font-size:12px}.controls select{min-width:175px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:white;color:var(--ink)}.primary{width:100%;min-height:58px;margin-top:20px;padding:14px 20px;display:flex;align-items:center;justify-content:center;gap:12px;border:0;border-radius:14px;color:white;background:var(--green);font-weight:800;cursor:pointer;text-decoration:none;transition:.18s}.primary:disabled{opacity:.36;cursor:not-allowed}.primary:not(:disabled):hover{transform:translateY(-2px)}.progress{display:none;padding:20px 4px 0}.progress-meta{display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:13px}.progress-meta strong{color:var(--green)}.track{height:7px;margin-top:9px;overflow:hidden;border-radius:99px;background:#e5e5dd}.bar{display:block;height:100%;width:0;border-radius:inherit;background:var(--lime);transition:width .2s}.error{display:none;margin:18px 4px 0;color:#a23d34;font-size:14px}.download{display:none;background:#326c49}.trust{padding:82px 0 72px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(21,33,28,.16)}.trust article{background:var(--paper);padding:0 40px}.trust article:first-child{padding-left:0}.trust article:last-child{padding-right:0}.trust article>span{color:#7f8b84;font-family:Georgia,serif;font-size:12px}.trust h2{margin:18px 0 10px;font-size:18px}.trust p{margin:0;color:var(--muted);line-height:1.7;font-size:14px}footer{min-height:82px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(21,33,28,.16);color:var(--muted);font-size:12px}
+    @media(max-width:760px){.page{width:min(100% - 24px,620px)}.topbar{height:70px}.hero{padding:55px 0 36px;grid-template-columns:1fr;gap:28px}.eyebrow{margin:0 0 -12px}h1{font-size:clamp(46px,14vw,68px)}h1 em{text-decoration-thickness:9px}.converter{padding:12px;border-radius:20px}.dropzone{min-height:190px}.controls{align-items:flex-start;flex-direction:column}.controls select{width:100%}.trust{padding:60px 0 46px;grid-template-columns:1fr;gap:34px;background:transparent}.trust article,.trust article:first-child,.trust article:last-child{padding:0 0 34px;border-bottom:1px solid rgba(21,33,28,.15)}footer{align-items:flex-start;flex-direction:column;justify-content:center;gap:8px}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar"><div class="brand"><span class="brand-mark">音</span><span>音转</span></div><span class="privacy">仅在本机处理</span></header>
+    <section class="hero"><p class="eyebrow">OGG → MP3</p><h1>把声音，换一种<br><em>更通用的格式。</em></h1><p class="lede">拖入 OGG 音频，几步转成 MP3。无需上传，无需注册，文件始终留在你的设备里。</p></section>
+    <section class="converter">
+      <div class="dropzone" id="dropzone">
+        <input id="fileInput" type="file" accept=".ogg,audio/ogg,application/ogg">
+        <button class="drop-button" id="chooseButton"><span class="upload-mark">＋</span><strong>把 OGG 文件拖到这里</strong><small>或点击选择文件 · 最大 250 MB</small></button>
+        <div class="file-card" id="fileCard"><div class="file-badge">OGG</div><div class="file-info"><strong id="fileName"></strong><span id="fileSize"></span></div><button class="replace" id="replaceButton">更换</button></div>
+      </div>
+      <div class="controls"><div><label for="quality">MP3 音质</label><p>数值越高，音质和文件体积越大</p></div><select id="quality"><option value="128">128 kbps</option><option value="192">192 kbps</option><option value="256">256 kbps</option><option value="320" selected>320 kbps · 高品质</option></select></div>
+      <div class="progress" id="progress"><div class="progress-meta"><span id="statusText"></span><strong id="percent">0%</strong></div><div class="track"><span class="bar" id="bar"></span></div></div>
+      <p class="error" id="error"></p>
+      <button class="primary" id="convertButton" disabled>开始转换为 MP3 <span>→</span></button>
+      <a class="primary download" id="downloadButton">↓ 下载 MP3</a>
+    </section>
+    <section class="trust"><article><span>01</span><h2>不上传</h2><p>转换在浏览器本地完成，音频不会发送到任何服务器。</p></article><article><span>02</span><h2>不留存</h2><p>关闭页面后，文件和转换记录不会被保留。</p></article><article><span>03</span><h2>够简单</h2><p>无需账号、无需安装，一次选择即可完成。</p></article></section>
+    <footer><span>音转 · 简单、私密的音频转换</span><span>支持桌面与移动浏览器</span></footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/umd/ffmpeg.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.2/dist/umd/index.js"></script>
+  <script>
+    const { FFmpeg } = FFmpegWASM;
+    const { fetchFile, toBlobURL } = FFmpegUtil;
+    const input = document.querySelector("#fileInput"), choose = document.querySelector("#chooseButton"), replace = document.querySelector("#replaceButton"), card = document.querySelector("#fileCard"), dropzone = document.querySelector("#dropzone"), convert = document.querySelector("#convertButton"), download = document.querySelector("#downloadButton"), progressBox = document.querySelector("#progress"), statusText = document.querySelector("#statusText"), percent = document.querySelector("#percent"), bar = document.querySelector("#bar"), error = document.querySelector("#error");
+    let selectedFile = null, ffmpeg = null, objectUrl = "";
+    const sizeLabel = bytes => bytes < 1048576 ? (bytes / 1024).toFixed(1) + " KB" : (bytes / 1048576).toFixed(1) + " MB";
+    function setProgress(value, text) { progressBox.style.display = "block"; statusText.textContent = text; percent.textContent = value + "%"; bar.style.width = value + "%"; }
+    function showError(text) { error.textContent = text; error.style.display = "block"; }
+    function selectFile(file) {
+      error.style.display = "none";
+      if (!file || !file.name.toLowerCase().endsWith(".ogg")) return showError("请选择 .ogg 格式的音频文件。");
+      if (file.size > 250 * 1048576) return showError("文件不能超过 250 MB。");
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+      selectedFile = file; objectUrl = ""; document.querySelector("#fileName").textContent = file.name; document.querySelector("#fileSize").textContent = sizeLabel(file.size); choose.style.display = "none"; card.style.display = "flex"; convert.style.display = "flex"; convert.disabled = false; download.style.display = "none"; progressBox.style.display = "none";
+    }
+    choose.onclick = replace.onclick = () => input.click();
+    input.onchange = () => selectFile(input.files[0]);
+    dropzone.ondragover = e => { e.preventDefault(); dropzone.classList.add("dragging"); };
+    dropzone.ondragleave = () => dropzone.classList.remove("dragging");
+    dropzone.ondrop = e => { e.preventDefault(); dropzone.classList.remove("dragging"); selectFile(e.dataTransfer.files[0]); };
+    convert.onclick = async () => {
+      if (!selectedFile) return;
+      convert.disabled = true; error.style.display = "none";
+      try {
+        setProgress(2, "正在准备转换引擎，首次使用会稍等片刻…");
+        if (!ffmpeg) {
+          ffmpeg = new FFmpeg();
+          ffmpeg.on("progress", ({ progress }) => setProgress(Math.max(3, Math.min(99, Math.round(progress * 100))), "正在转换，音频只在这台设备上处理…"));
+          const base = "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/umd";
+          await ffmpeg.load({ coreURL: await toBlobURL(base + "/ffmpeg-core.js", "text/javascript"), wasmURL: await toBlobURL(base + "/ffmpeg-core.wasm", "application/wasm") });
+        }
+        await ffmpeg.writeFile("input.ogg", await fetchFile(selectedFile));
+        await ffmpeg.exec(["-i","input.ogg","-map_metadata","0","-codec:a","libmp3lame","-b:a",document.querySelector("#quality").value + "k","output.mp3"]);
+        const data = await ffmpeg.readFile("output.mp3");
+        objectUrl = URL.createObjectURL(new Blob([data.buffer], { type: "audio/mpeg" }));
+        const outputName = selectedFile.name.replace(/\.ogg$/i, "") + ".mp3";
+        download.href = objectUrl; download.download = outputName; download.textContent = "↓ 下载 " + outputName; convert.style.display = "none"; download.style.display = "flex"; setProgress(100, "转换完成，可以下载 MP3 了。");
+        await ffmpeg.deleteFile("input.ogg"); await ffmpeg.deleteFile("output.mp3");
+      } catch (e) { showError("转换没有成功，请刷新页面后重试。"); convert.disabled = false; }
+    };
+  </script>
+</body>
+</html>
