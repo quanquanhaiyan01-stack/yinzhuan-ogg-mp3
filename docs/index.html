@@ -30,7 +30,7 @@
     <section class="trust"><article><span>01</span><h2>不上传</h2><p>转换在浏览器本地完成，音频不会发送到任何服务器。</p></article><article><span>02</span><h2>不留存</h2><p>关闭页面后，文件和转换记录不会被保留。</p></article><article><span>03</span><h2>够简单</h2><p>无需账号、无需安装，一次选择即可完成。</p></article></section>
     <footer><span>音转 · 简单、私密的音频转换</span><span>支持桌面与移动浏览器</span></footer>
   </main>
-  <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/umd/ffmpeg.js"></script>
+  <script src="./ffmpeg.js"></script>
   <script>
     const { FFmpeg } = FFmpegWASM;
     const fetchFile = async file => new Uint8Array(await file.arrayBuffer());
@@ -66,7 +66,10 @@
           ffmpeg = new FFmpeg();
           ffmpeg.on("progress", ({ progress }) => setProgress(Math.max(3, Math.min(99, Math.round(progress * 100))), "正在转换，音频只在这台设备上处理…"));
           const base = "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/umd";
-          await ffmpeg.load({ coreURL: await toBlobURL(base + "/ffmpeg-core.js", "text/javascript"), wasmURL: await toBlobURL(base + "/ffmpeg-core.wasm", "application/wasm") });
+          await ffmpeg.load({
+            coreURL: await toBlobURL(base + "/ffmpeg-core.js", "text/javascript"),
+            wasmURL: await toBlobURL(base + "/ffmpeg-core.wasm", "application/wasm")
+          });
         }
         await ffmpeg.writeFile("input.ogg", await fetchFile(selectedFile));
         await ffmpeg.exec(["-i","input.ogg","-map_metadata","0","-codec:a","libmp3lame","-b:a",document.querySelector("#quality").value + "k","output.mp3"]);
@@ -75,7 +78,11 @@
         const outputName = selectedFile.name.replace(/\.ogg$/i, "") + ".mp3";
         download.href = objectUrl; download.download = outputName; download.textContent = "↓ 下载 " + outputName; convert.style.display = "none"; download.style.display = "flex"; setProgress(100, "转换完成，可以下载 MP3 了。");
         await ffmpeg.deleteFile("input.ogg"); await ffmpeg.deleteFile("output.mp3");
-      } catch (e) { showError("转换没有成功，请刷新页面后重试。"); convert.disabled = false; }
+      } catch (e) {
+        console.error("音频转换失败：", e);
+        showError("转换没有成功：" + (e?.message || "请刷新页面后重试。"));
+        convert.disabled = false;
+      }
     };
   </script>
 </body>
