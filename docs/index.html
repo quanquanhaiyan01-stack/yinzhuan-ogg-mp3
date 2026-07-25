@@ -31,10 +31,15 @@
     <footer><span>音转 · 简单、私密的音频转换</span><span>支持桌面与移动浏览器</span></footer>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/umd/ffmpeg.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.2/dist/umd/index.js"></script>
   <script>
     const { FFmpeg } = FFmpegWASM;
-    const { fetchFile, toBlobURL } = FFmpegUtil;
+    const fetchFile = async file => new Uint8Array(await file.arrayBuffer());
+    const toBlobURL = async (url, mimeType) => {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`加载转换组件失败：${response.status}`);
+      const data = await response.arrayBuffer();
+      return URL.createObjectURL(new Blob([data], { type: mimeType }));
+    };
     const input = document.querySelector("#fileInput"), choose = document.querySelector("#chooseButton"), replace = document.querySelector("#replaceButton"), card = document.querySelector("#fileCard"), dropzone = document.querySelector("#dropzone"), convert = document.querySelector("#convertButton"), download = document.querySelector("#downloadButton"), progressBox = document.querySelector("#progress"), statusText = document.querySelector("#statusText"), percent = document.querySelector("#percent"), bar = document.querySelector("#bar"), error = document.querySelector("#error");
     let selectedFile = null, ffmpeg = null, objectUrl = "";
     const sizeLabel = bytes => bytes < 1048576 ? (bytes / 1024).toFixed(1) + " KB" : (bytes / 1048576).toFixed(1) + " MB";
